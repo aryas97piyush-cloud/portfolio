@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagram 5 — SIP/WebRTC · CTI · Queue Routing</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f1117; color: #e2e8f0; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+  .page-header { text-align: center; margin-bottom: 32px; }
+  .page-header .series { font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #64748b; margin-bottom: 8px; }
+  .page-header h1 { font-size: 22px; font-weight: 600; color: #f1f5f9; margin-bottom: 6px; }
+  .page-header .subtitle { font-size: 14px; color: #94a3b8; }
+  .diagram-card { background: #1a1f2e; border: 1px solid #2d3748; border-radius: 16px; padding: 32px; width: 100%; max-width: 780px; }
+  svg text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+  .footer { margin-top: 24px; font-size: 12px; color: #475569; text-align: center; }
+</style>
+</head>
+<body>
+<div class="page-header">
+  <div class="series">CCaaS · Diagram 5 of 7</div>
+  <h1>SIP/WebRTC · CTI · Queue Routing</h1>
+  <div class="subtitle">Full call lifecycle — inbound signalling through agent delivery</div>
+</div>
+<div class="diagram-card">
+<svg width="100%" viewBox="0 0 700 680" role="img" xmlns="http://www.w3.org/2000/svg">
+<title>SIP WebRTC CTI Queue Routing Architecture</title>
+<defs>
+  <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+</defs>
+
+<!-- INBOUND -->
+<rect x="40" y="20" width="620" height="56" rx="10" fill="#0f1f3d" stroke="#1e3a5f" stroke-width="0.5"/>
+<text x="60" y="42" font-size="12" font-weight="600" fill="#3b82f6">Inbound channels</text>
+<rect x="80" y="36" width="100" height="26" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="0.5"/>
+<text x="130" y="53" text-anchor="middle" font-size="11" fill="#93c5fd">PSTN / SIP</text>
+<rect x="194" y="36" width="100" height="26" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="0.5"/>
+<text x="244" y="53" text-anchor="middle" font-size="11" fill="#93c5fd">WebRTC</text>
+<rect x="308" y="36" width="100" height="26" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="0.5"/>
+<text x="358" y="53" text-anchor="middle" font-size="11" fill="#93c5fd">Click-to-call</text>
+<rect x="422" y="36" width="100" height="26" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="0.5"/>
+<text x="472" y="53" text-anchor="middle" font-size="11" fill="#93c5fd">Softphone</text>
+<rect x="536" y="36" width="100" height="26" rx="4" fill="#1e3a5f" stroke="#2563eb" stroke-width="0.5"/>
+<text x="586" y="53" text-anchor="middle" font-size="11" fill="#93c5fd">Mobile app</text>
+
+<line x1="350" y1="76" x2="350" y2="104" stroke="#64748b" stroke-width="1" marker-end="url(#arr)"/>
+
+<!-- SIGNALLING + MEDIA -->
+<rect x="100" y="108" width="500" height="56" rx="10" fill="#1a0a2e" stroke="#4c1d95" stroke-width="0.5"/>
+<text x="350" y="130" text-anchor="middle" font-size="14" font-weight="600" fill="#c4b5fd">SIP signalling + media plane</text>
+<text x="350" y="150" text-anchor="middle" font-size="11" fill="#a78bfa">SIP proxy · RTP media · SDP negotiation · DTMF · DoT compliance</text>
+
+<line x1="350" y1="164" x2="350" y2="192" stroke="#64748b" stroke-width="1" marker-end="url(#arr)"/>
+
+<!-- CTI LAYER -->
+<rect x="80" y="196" width="540" height="72" rx="10" fill="#0d2218" stroke="#065f46" stroke-width="0.5"/>
+<text x="100" y="218" font-size="12" font-weight="600" fill="#6ee7b7">CTI layer</text>
+<rect x="100" y="226" width="148" height="30" rx="4" fill="#14532d" stroke="#16a34a" stroke-width="0.5"/>
+<text x="174" y="245" text-anchor="middle" font-size="12" fill="#86efac">Call control</text>
+<rect x="262" y="226" width="148" height="30" rx="4" fill="#14532d" stroke="#16a34a" stroke-width="0.5"/>
+<text x="336" y="245" text-anchor="middle" font-size="12" fill="#86efac">Agent state mgmt</text>
+<rect x="424" y="226" width="178" height="30" rx="4" fill="#14532d" stroke="#16a34a" stroke-width="0.5"/>
+<text x="513" y="245" text-anchor="middle" font-size="12" fill="#86efac">Presence sync</text>
+
+<line x1="350" y1="268" x2="350" y2="296" stroke="#64748b" stroke-width="1" marker-end="url(#arr)"/>
+
+<!-- IVR / FLOW DESIGNER -->
+<rect x="120" y="300" width="460" height="60" rx="10" fill="#1a1a0d" stroke="#854d0e" stroke-width="0.5"/>
+<text x="350" y="322" text-anchor="middle" font-size="14" font-weight="600" fill="#fcd34d">IVR / Flow designer</text>
+<text x="350" y="342" text-anchor="middle" font-size="11" fill="#fbbf24">Drag-drop no-code builder · 20+ node types · DTMF + Voice AI self-service</text>
+
+<line x1="350" y1="360" x2="350" y2="388" stroke="#64748b" stroke-width="1" marker-end="url(#arr)"/>
+
+<!-- QUEUE + ROUTING ENGINE -->
+<rect x="60" y="392" width="580" height="80" rx="10" fill="#1a0a2e" stroke="#4c1d95" stroke-width="0.5"/>
+<text x="80" y="414" font-size="12" font-weight="600" fill="#a78bfa">Queue &amp; routing engine</text>
+<rect x="80" y="422" width="128" height="38" rx="4" fill="#2e1065" stroke="#7c3aed" stroke-width="0.5"/>
+<text x="144" y="438" text-anchor="middle" font-size="12" fill="#c4b5fd">AI-predictive</text>
+<text x="144" y="454" text-anchor="middle" font-size="11" fill="#a78bfa">routing</text>
+<rect x="220" y="422" width="128" height="38" rx="4" fill="#2e1065" stroke="#7c3aed" stroke-width="0.5"/>
+<text x="284" y="438" text-anchor="middle" font-size="12" fill="#c4b5fd">Skills-based</text>
+<text x="284" y="454" text-anchor="middle" font-size="11" fill="#a78bfa">matching</text>
+<rect x="360" y="422" width="128" height="38" rx="4" fill="#2e1065" stroke="#7c3aed" stroke-width="0.5"/>
+<text x="424" y="438" text-anchor="middle" font-size="12" fill="#c4b5fd">SLA priority</text>
+<text x="424" y="454" text-anchor="middle" font-size="11" fill="#a78bfa">enforcement</text>
+<rect x="500" y="422" width="120" height="38" rx="4" fill="#2e1065" stroke="#7c3aed" stroke-width="0.5"/>
+<text x="560" y="438" text-anchor="middle" font-size="12" fill="#c4b5fd">AWA</text>
+<text x="560" y="454" text-anchor="middle" font-size="11" fill="#a78bfa">assignment</text>
+
+<line x1="350" y1="472" x2="350" y2="500" stroke="#64748b" stroke-width="1" marker-end="url(#arr)"/>
+
+<!-- AGENT WORKSPACE DELIVERY -->
+<rect x="80" y="504" width="540" height="60" rx="10" fill="#1e293b" stroke="#334155" stroke-width="0.5"/>
+<text x="350" y="526" text-anchor="middle" font-size="14" font-weight="600" fill="#94a3b8">Agent workspace delivery</text>
+<text x="350" y="546" text-anchor="middle" font-size="11" fill="#64748b">ServiceNow SOW · CSM/FSM · HR workspace · screen pop · CTI toolbar</text>
+
+<!-- Legend -->
+<rect x="60" y="598" width="10" height="10" rx="2" fill="#0f1f3d" stroke="#1e3a5f" stroke-width="0.5"/>
+<text x="76" y="607" font-size="11" fill="#64748b">Inbound / signalling</text>
+<rect x="220" y="598" width="10" height="10" rx="2" fill="#0d2218" stroke="#065f46" stroke-width="0.5"/>
+<text x="236" y="607" font-size="11" fill="#64748b">CTI layer</text>
+<rect x="310" y="598" width="10" height="10" rx="2" fill="#1a1a0d" stroke="#854d0e" stroke-width="0.5"/>
+<text x="326" y="607" font-size="11" fill="#64748b">IVR / flow</text>
+<rect x="410" y="598" width="10" height="10" rx="2" fill="#1a0a2e" stroke="#4c1d95" stroke-width="0.5"/>
+<text x="426" y="607" font-size="11" fill="#64748b">Queue &amp; routing</text>
+</svg>
+</div>
+<div class="footer">Piyush Shyamlal · CCaaS Architecture Portfolio · 2025</div>
+</body>
+</html>
